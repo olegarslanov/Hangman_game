@@ -1,0 +1,24 @@
+1. Create a Hangman game (terminal version):
+    * maximum quess attempts: 10
+    * ability to quess a word or a letter. if a quess is incorrect user loses 1 life
+    * if user has 0 quesses (lifes) left game is lost
+    
+    Requirements:
+    * create a new Github project, virtual env., readme, .gitignore, etc.
+    * use python functions and/or classes to achieve necessary functionality
+    * possible words should be held in a list data structure
+    * use type annotations
+    * use print or logging library to log out information
+
+
+1. Sukurkite žaidimą Hangman (terminalo versija):
+     * maksimalus užklausų bandymų skaičius: 10
+     * gebėjimas paklausti žodį ar raidę. jei uždavimas neteisingas, vartotojas praranda 1 gyvybę
+     * Jei vartotojas turi 0 užduočių (gyvenimų), žaidimas prarandamas
+    
+     Reikalavimai:
+     * sukurti naują Github projektą, virtualų env., readme, .gitignore ir kt.
+     * naudokite python funkcijas ir (arba) klases, kad pasiektumėte reikiamą funkcionalumą
+     * galimi žodžiai turėtų būti laikomi sąrašo duomenų struktūroje
+     * naudokite tipo anotacijas
+     * Norėdami pateikti informacija, naudokite spausdinimo arba registravimo biblioteką
