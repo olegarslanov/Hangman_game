@@ -1,7 +1,6 @@
 import random
 from data import fruits, animals, numbers, countries
-from answer_table import create_word_mask, replace_space_to_letter
-
+from answer_table import guess_mask_modificate
 
 # CLI
 print("This is a game 'Hangman'")
@@ -33,11 +32,6 @@ while True:
         print("Input correct letter. Please enter only: A, B, C, or D")
 
 print(random_word)
+
 # Paverčiame žodį į vieną eilutę ir išvedame lentelę (paslepus visas neatspetas raides)
-create_word_mask(random_word)
-
-guess_letter = input(
-    "Please guess letter(letters only from english alphabet), or word:\n"
-)
-
-replace_space_to_letter(random_word, guess_letter)
+guess_mask_modificate(random_word)
