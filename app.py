@@ -23,7 +23,7 @@ class WordGuessGame:
     def word_mask_first(self):
         return word_to_row(self.word_mask)
 
-    def word_mask_modificate(self):
+    def guess_word(self):
         while self.lifes_counter.get_result() > 0:
             # print(self.word_mask)
             guess_letter_word = input("Please guess letter, or word:")
@@ -101,7 +101,7 @@ def main():
     # print(random_word)  # mokymo tikslais
     print(game.word_mask_first())
 
-    if game.word_mask_modificate():
+    if game.guess_word():
         print("Congratulations, you guessed the word!")
     else:
         print(f"You lose. Game over. Word is: {random_word}")
