@@ -1,3 +1,7 @@
+"""
+This module contains words for hangman game.
+"""
+
 fruits = [
     "apple",
     "banana",
