@@ -6,6 +6,7 @@ import random
 from data import fruits, animals, numbers, countries
 from word_to_row import word_to_row
 from hangman_pictures import hangman_parts, GAME_WELCOME
+from alphabet import alphabet
 
 
 class LifesCounter:
@@ -62,6 +63,8 @@ class WordGuessGame:
         self.word_mask = [" " for _ in random_word]
         self.lifes_counter = LifesCounter()
         self.hangman_parts_counter = HangmanPartsCounter()
+        self.guess_letter_word = None
+        self.used_letters = []
 
     def word_mask_first(self) -> str:
         """
@@ -71,24 +74,38 @@ class WordGuessGame:
 
     def guess_word(self) -> bool:
         """
-        Checks guess letter, or word. Print hangman pictures and how much
-        lifes is left. Checks if the word is guessed.
+        Checks guess letter, or word. Print hangman pictures and remaining
+        lives. Checks if the word is guessed.
         """
         while self.lifes_counter.get_result() > 0:
-            guess_letter_word = input("Please guess letter, or word:")
+            self.guess_letter_word = input("Please guess letter, or word:")
 
-            if len(guess_letter_word) == 1:
-                self.is_letter_guesed(guess_letter_word)
-            elif len(guess_letter_word) > 1:
-                self.is_word_guessed(guess_letter_word)
+            if len(self.guess_letter_word) == 1 and self.is_letter_alphabet():
+                if self.is_letter_used(self.guess_letter_word):
+                    print("! Letter is used. Please enter another letter !")
+                else:
+                    self.is_letter_guesed(self.guess_letter_word)
+            elif len(self.guess_letter_word) > 1:
+                self.is_word_guessed(self.guess_letter_word)
             else:
-                print("Something wrong. Please try one more time")
+                print(
+                    "!!! In this game You can enter only alphabet letters."
+                    "Symbols is not accepted. Please enter letter !!!"
+                )
 
+            self.used_letters.append(self.guess_letter_word)
             self.print_game_status()
 
             if self.word_mask == self.random_word:
                 return True
 
+        return False
+
+    def is_letter_alphabet(self) -> bool:
+        """Check is letter in alphabet"""
+        for letter in alphabet:
+            if letter == self.guess_letter_word:
+                return True
         return False
 
     def is_letter_guesed(self, guess_letter) -> str:
@@ -105,6 +122,12 @@ class WordGuessGame:
         if not letter_found:
             self.lifes_counter.reduce_lifes()
             self.hangman_parts_counter.count_parts()
+
+    def is_letter_used(self, guess_letter) -> bool:
+        """Check if letter used before."""
+        if guess_letter in self.used_letters:
+            return True
+        return False
 
     def is_word_guessed(self, guess_word) -> str:
         """
