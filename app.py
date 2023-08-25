@@ -24,6 +24,9 @@ class LifesCounter:
         self.lifes -= 1
 
     def get_result(self) -> int:
+        """
+        get counter result.
+        """
         return self.lifes
 
 
@@ -43,6 +46,9 @@ class HangmanPartsCounter:
         self.count += 1
 
     def get_result(self) -> int:
+        """
+        get counter result.
+        """
         return self.count
 
 
@@ -58,18 +64,24 @@ class WordGuessGame:
         self.hangman_parts_counter = HangmanPartsCounter()
 
     def word_mask_first(self) -> str:
+        """
+        show word mask first.
+        """
         return word_to_row(self.word_mask)
 
     def guess_word(self) -> bool:
+        """
+        Checks guess letter, or word. Print hangman pictures and how much
+        lifes is left. Checks if the word is guessed.
+        """
         while self.lifes_counter.get_result() > 0:
-            # print(self.word_mask)
             guess_letter_word = input("Please guess letter, or word:")
             if len(guess_letter_word) == 1:
                 self.update_word_mask(guess_letter_word)
             elif len(guess_letter_word) > 1:
                 self.check_guess_word(guess_letter_word)
             else:
-                print("Something wrong")
+                print("Something wrong. Please try one more time")
 
             self.print_game_status()
 
@@ -79,10 +91,13 @@ class WordGuessGame:
         return False
 
     def update_word_mask(self, guess_letter) -> str:
+        """
+        update word mask.
+        enumerate() funkcija Pythone leidzia pereiti per seka ir
+        kartu gauti ir elemento indeksa bei pati elementa
+        """
         letter_found = False
         for index, letter in enumerate(self.random_word.lower()):
-            # enumerate() funkcija Pythone leidzia pereiti per seka ir
-            # kartu gauti ir elemento indeksa bei pati elementa
             if letter == guess_letter.lower():
                 self.word_mask[index] = guess_letter
                 letter_found = True
@@ -91,6 +106,9 @@ class WordGuessGame:
             self.hangman_parts_counter.count_parts()
 
     def check_guess_word(self, guess_word) -> str:
+        """
+        check if the word is guessed.
+        """
         if self.random_word.lower() == guess_word.lower():
             self.word_mask = guess_word
             return True
@@ -101,6 +119,7 @@ class WordGuessGame:
             return False
 
     def is_word_guessed(self) -> bool:
+        """ """
         return "".join(self.word_mask).lower() == self.random_word.lower()
 
     def print_game_status(self) -> str:
@@ -145,7 +164,7 @@ def main():
     while True:
         content_choice = input(
             "fruits please enter - A, \nanimals please enter - B"
-            "\nnumbers please enter - C, \ncountries please enter - D"
+            "\nnumbers please enter - C, \ncountries please enter - D:\n"
         ).upper()
 
         if content_choice == "A":
