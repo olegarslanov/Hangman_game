@@ -5,7 +5,7 @@ This module contains functions for hangman game.
 import random
 from data import fruits, animals, numbers, countries
 from word_to_row import word_to_row
-from hangman_pictures import hangman_parts
+from hangman_pictures import hangman_parts, GAME_WELCOME
 
 
 class LifesCounter:
@@ -76,21 +76,22 @@ class WordGuessGame:
         """
         while self.lifes_counter.get_result() > 0:
             guess_letter_word = input("Please guess letter, or word:")
+
             if len(guess_letter_word) == 1:
-                self.update_word_mask(guess_letter_word)
+                self.is_letter_guesed(guess_letter_word)
             elif len(guess_letter_word) > 1:
-                self.check_guess_word(guess_letter_word)
+                self.is_word_guessed(guess_letter_word)
             else:
                 print("Something wrong. Please try one more time")
 
             self.print_game_status()
 
-            if self.is_word_guessed():
-                print(word_to_row(self.random_word))
+            if self.word_mask == self.random_word:
                 return True
+
         return False
 
-    def update_word_mask(self, guess_letter) -> str:
+    def is_letter_guesed(self, guess_letter) -> str:
         """
         update word mask.
         enumerate() funkcija Pythone leidzia pereiti per seka ir
@@ -99,41 +100,31 @@ class WordGuessGame:
         letter_found = False
         for index, letter in enumerate(self.random_word.lower()):
             if letter == guess_letter.lower():
-                self.word_mask[index] = guess_letter
+                self.word_mask[index] = self.random_word[index]
                 letter_found = True
         if not letter_found:
             self.lifes_counter.reduce_lifes()
             self.hangman_parts_counter.count_parts()
 
-    def check_guess_word(self, guess_word) -> str:
+    def is_word_guessed(self, guess_word) -> str:
         """
         check if the word is guessed.
         """
         if self.random_word.lower() == guess_word.lower():
-            self.word_mask = guess_word
-            return True
+            self.word_mask = self.random_word
+
         else:
             self.lifes_counter.reduce_lifes()
             self.hangman_parts_counter.count_parts()
             print(f"Sorry guess word is not: {guess_word}")
-            return False
-
-    def is_word_guessed(self) -> bool:
-        """ """
-        return "".join(self.word_mask).lower() == self.random_word.lower()
 
     def print_game_status(self) -> str:
         """
-        Calculate the average of a list of numbers.
-
-        Args:
-        numbers (list): A list of numbers.
-
-        Returns:
-        float: The calculated average.
+        Print word mask, lifes left, hangman pictures
         """
-        if not self.is_word_guessed():
-            print(word_to_row("".join(self.word_mask)))
+        print(word_to_row("".join(self.word_mask)))
+
+        if self.word_mask != self.random_word:
             print("Lifes left:", self.lifes_counter.get_result())
             print(hangman_parts[self.hangman_parts_counter.get_result()])
 
@@ -142,20 +133,7 @@ def main():
     """
     App launch function.
     """
-    print(
-        """
-                    Welcome to the game:
-
-             H  H
-             H  H HHHH HHHH  HHH HHHH  HHHH HHH
-             HHHH    H H  H H  H H H H    H H  H
-             H  H  HHH H  H H  H H H H  HHH H  H
-             H  H H  H H  H H  H H H H H  H H  H
-             H  H HHHH H  H  HHH H H H HHHH H  H
-                               H
-                            HHH
-        """
-    )
+    print(GAME_WELCOME)
     print(
         "You can learn how to play this game by clicking on this link: \n"
         "https://www.youtube.com/watch?v=leW9ZotUVYo"
@@ -188,7 +166,7 @@ def main():
     print(game.word_mask_first())
 
     if game.guess_word():
-        print("Congratulations, you guessed the word!")
+        print("Congratulations. You guessed the word!")
     else:
         print(f"You lose. Game over. Word is: {random_word}")
 

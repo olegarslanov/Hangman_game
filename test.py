@@ -1,4 +1,3 @@
-print(
-    "You can learn how to play this game by clicking on this link: \n"
-    "https://www.youtube.com/watch?v=leW9ZotUVYo"
-)
+def x():
+    if self.word_mask == self.random_word:
+        return True
