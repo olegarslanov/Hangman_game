@@ -1,12 +1,17 @@
 """
-This module contains functions for hangman game.
+This module contains functions for 'Hangman' game.
 """
 
 import random
+import sys
+
 from data import fruits, animals, numbers, countries
 from word_to_row import word_to_row
 from hangman_pictures import hangman_parts, GAME_WELCOME
 from alphabet import alphabet
+
+sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\db")
+from app_sql import player_login
 
 
 class LifesCounter:
@@ -94,9 +99,10 @@ class WordGuessGame:
                 )
 
             self.used_letters.append(self.guess_letter_word)
+
             self.print_game_status()
 
-            if self.word_mask == self.random_word:
+            if ("".join(self.word_mask)) == self.random_word:
                 return True
 
         return False
@@ -147,7 +153,7 @@ class WordGuessGame:
         """
         print(word_to_row("".join(self.word_mask)))
 
-        if self.word_mask != self.random_word:
+        if ("".join(self.word_mask)) != self.random_word:
             print("Lifes left:", self.lifes_counter.get_result())
             print(hangman_parts[self.hangman_parts_counter.get_result()])
 
@@ -161,7 +167,11 @@ def main():
         "You can learn how to play this game by clicking on this link: \n"
         "https://www.youtube.com/watch?v=leW9ZotUVYo"
     )
+
+    player_login()
+
     print("\nFirst please choose content of spelled words:")
+
     while True:
         content_choice = input(
             "fruits please enter - A, \nanimals please enter - B"

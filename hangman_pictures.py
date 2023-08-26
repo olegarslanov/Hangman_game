@@ -1,4 +1,8 @@
-# trigubi kabuciu simboliai naudojami tam, kad butu galima ideti kelias eilutes teksto ir simboliu, kurie sudarys norima atvaizda. "\\" reikia dvigubinti kadangi '\' tai spec. simbolis, kuris atvaizduos nieka "" mano atveju atvaizduos "\""
+"""
+trigubi kabuciu simboliai naudojami tam, kad butu galima ideti kelias
+eilutes teksto ir simboliu, kurie sudarys norima atvaizda. "\\" reikia
+dvigubinti kadangi '\' tai spec. simbolis, kuris atvaizduos nieka ""
+"""
 
 hangman_parts = [
     """
