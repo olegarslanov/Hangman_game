@@ -11,7 +11,7 @@ from hangman_pictures import hangman_parts, GAME_WELCOME
 from alphabet import alphabet
 
 sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\db")
-from app_sql import player_login
+from app_sql2 import login_player, update_player_score
 
 
 class LifesCounter:
@@ -168,7 +168,7 @@ def main():
         "https://www.youtube.com/watch?v=leW9ZotUVYo"
     )
 
-    player_login()
+    player_id = login_player()
 
     print("\nFirst please choose content of spelled words:")
 
@@ -194,14 +194,19 @@ def main():
             print("Input correct letter. Please enter only: A, B, C, or D")
 
     game = WordGuessGame(random_word)
+    game_result = game.guess_word()
 
     # print(random_word)  # mokymo tikslais
     print(game.word_mask_first())
 
-    if game.guess_word():
+    if game_result:
         print("Congratulations. You guessed the word!")
     else:
         print(f"You lose. Game over. Word is: {random_word}")
+
+    update_player_score(player_id)
+
+    return game_result
 
 
 if __name__ == "__main__":
