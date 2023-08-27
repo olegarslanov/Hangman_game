@@ -1,13 +1,12 @@
 """
-Here I made sql "Score_table" for Hangman game
+Here I create sql "Score_table" for Hangman game
 """
-import sys
+# import sys
 
 from sqlalchemy.orm import sessionmaker
 from models import engine, Player
 
-sys.path.append("C:\\Users\\olega\\projects\\Hangman_game")
-from app import game_result
+# sys.path.append("C:\\Users\\olega\\projects\\Hangman_game")
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -76,21 +75,3 @@ def login_player():
 
         else:
             print("Input correct letter. Please enter only: 1, 2, 3, or 4")
-
-
-def update_player_score(player_id):
-    player = session.query(Player).get(player_id)
-    player.played += 1
-    # game_result = main()
-
-    if game_result:
-        player.won += 1
-    else:
-        player.lose += 1
-
-    session.commit()
-
-    players = session.query(Player).all()
-    print("\n        Score Table         ", "\n----------------------------")
-    for player in players:
-        print(player)

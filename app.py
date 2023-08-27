@@ -2,16 +2,9 @@
 This module contains functions for 'Hangman' game.
 """
 
-import random
-import sys
-
-from data import fruits, animals, numbers, countries
 from word_to_row import word_to_row
-from hangman_pictures import hangman_parts, GAME_WELCOME
+from hangman_pictures import hangman_parts
 from alphabet import alphabet
-
-sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\db")
-from app_sql2 import login_player, update_player_score
 
 
 class LifesCounter:
@@ -75,7 +68,7 @@ class WordGuessGame:
         """
         show word mask first.
         """
-        return word_to_row(self.word_mask)
+        print(word_to_row(self.word_mask))
 
     def guess_word(self) -> bool:
         """
@@ -83,7 +76,7 @@ class WordGuessGame:
         lives. Checks if the word is guessed.
         """
         while self.lifes_counter.get_result() > 0:
-            self.guess_letter_word = input("Please guess letter, or word:")
+            self.guess_letter_word = input("Please guess letter, or word:").lower()
 
             if len(self.guess_letter_word) == 1 and self.is_letter_alphabet():
                 if self.is_letter_used(self.guess_letter_word):
@@ -102,7 +95,7 @@ class WordGuessGame:
 
             self.print_game_status()
 
-            if ("".join(self.word_mask)) == self.random_word:
+            if ("".join(self.word_mask).lower()) == self.random_word.lower():
                 return True
 
         return False
@@ -156,58 +149,3 @@ class WordGuessGame:
         if ("".join(self.word_mask)) != self.random_word:
             print("Lifes left:", self.lifes_counter.get_result())
             print(hangman_parts[self.hangman_parts_counter.get_result()])
-
-
-def main():
-    """
-    App launch function.
-    """
-    print(GAME_WELCOME)
-    print(
-        "You can learn how to play this game by clicking on this link: \n"
-        "https://www.youtube.com/watch?v=leW9ZotUVYo"
-    )
-
-    player_id = login_player()
-
-    print("\nFirst please choose content of spelled words:")
-
-    while True:
-        content_choice = input(
-            "fruits please enter - A, \nanimals please enter - B"
-            "\nnumbers please enter - C, \ncountries please enter - D:\n"
-        ).upper()
-
-        if content_choice == "A":
-            random_word = random.choice(fruits)
-            break
-        elif content_choice == "B":
-            random_word = random.choice(animals)
-            break
-        elif content_choice == "C":
-            random_word = random.choice(numbers)
-            break
-        elif content_choice == "D":
-            random_word = random.choice(countries)
-            break
-        else:
-            print("Input correct letter. Please enter only: A, B, C, or D")
-
-    game = WordGuessGame(random_word)
-    game_result = game.guess_word()
-
-    # print(random_word)  # mokymo tikslais
-    print(game.word_mask_first())
-
-    if game_result:
-        print("Congratulations. You guessed the word!")
-    else:
-        print(f"You lose. Game over. Word is: {random_word}")
-
-    update_player_score(player_id)
-
-    return game_result
-
-
-if __name__ == "__main__":
-    main()

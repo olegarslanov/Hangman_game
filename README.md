@@ -8,4 +8,4 @@ Player have 10 lifes
     * if user has 0 quesses (lifes) left game is lost
 
 How to start:
-`py app.py`
+`py main.py`
