@@ -6,23 +6,23 @@ import sys
 import random
 
 from sqlalchemy.orm import sessionmaker
-from hangman_pictures import GAME_WELCOME
-from data import fruits, countries, numbers, animals
-from app import WordGuessGame
-
 
 sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\db")
-from app_sql2 import login_player
-from models import engine, Player
 
-Session = sessionmaker(bind=engine)
-session = Session()
+from models import engine, Player
+from app_sql2 import login_player
+from data import fruits, countries, numbers, animals
+from app import WordGuessGame
+from hangman_pictures import GAME_WELCOME
 
 
 def main():
     """
     App launch function.
     """
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     print(GAME_WELCOME)
     print(
         "You can learn how to play this game by clicking on this link: \n"

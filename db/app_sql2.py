@@ -1,12 +1,9 @@
 """
 Here I create sql "Score_table" for Hangman game
 """
-# import sys
 
 from sqlalchemy.orm import sessionmaker
 from models import engine, Player
-
-# sys.path.append("C:\\Users\\olega\\projects\\Hangman_game")
 
 Session = sessionmaker(bind=engine)
 session = Session()
