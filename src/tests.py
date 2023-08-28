@@ -3,7 +3,7 @@ This file contains unit tests
 """
 
 import unittest
-from app import LifesCounter, HangmanPartsCounter
+from src.app import LifesCounter, HangmanPartsCounter
 
 
 class TestLifesCounterClass(unittest.TestCase):

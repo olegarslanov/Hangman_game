@@ -7,7 +7,7 @@ import random
 
 from sqlalchemy.orm import sessionmaker
 
-sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\db")
+sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\src\\db")
 
 from models import engine, Player
 from app_sql2 import login_player
@@ -58,22 +58,29 @@ def main():
     game.word_mask_first()
     return_result = game.guess_word()
 
-    player = session.get(Player, player_id)  # use user ID
-    player.played += 1
+    if player_id is None:
+        if return_result:
+            print("Congratulations. You guessed the word!")
+        else:
+            print(f"You lose. Game over. Word is: {random_word}")
 
-    if return_result:
-        print("Congratulations. You guessed the word!")
-        player.won += 1
     else:
-        print(f"You lose. Game over. Word is: {random_word}")
-        player.lose += 1
+        player = session.get(Player, player_id)  # use user ID
+        player.played += 1
 
-    session.commit()
+        if return_result:
+            print("Congratulations. You guessed the word!")
+            player.won += 1
+        else:
+            print(f"You lose. Game over. Word is: {random_word}")
+            player.lose += 1
 
-    players = session.query(Player).all()
-    print("\n        Score Table         ", "\n----------------------------")
-    for player in players:
-        print(player)
+        session.commit()
+
+        players = session.query(Player).all()
+        print("\n        Score Table         ", "\n----------------------------")
+        for player in players:
+            print(player)
 
 
 if __name__ == "__main__":
