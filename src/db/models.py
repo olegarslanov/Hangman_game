@@ -26,7 +26,16 @@ class Player(Base):
     won = Column("Won", Integer)
     lose = Column("Lose", Integer)
 
-    def __init__(self, nickname, name, surname, email, played, won, lose):
+    def __init__(
+        self,
+        nickname: str,
+        name: str,
+        surname: str,
+        email: str,
+        played: int,
+        won: int,
+        lose: int,
+    ):
         self.name = name
         self.nickname = nickname
         self.surname = surname

@@ -56,7 +56,7 @@ class WordGuessGame:
     This class contains functions for hangman game.
     """
 
-    def __init__(self, random_word) -> None:
+    def __init__(self, random_word: str) -> None:
         self.random_word = random_word
         self.word_mask = [" " for _ in random_word]
         self.lifes_counter = LifesCounter()

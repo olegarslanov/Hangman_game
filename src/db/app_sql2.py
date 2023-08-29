@@ -16,12 +16,14 @@ def login_player():
     """
 
     while True:
-        choice = input(
-            "Please enter: \n1 - login player \n2 - register new player"
-            "\n3 - play without registration \n4 - show Score Table \n:"
+        choice = int(
+            input(
+                "Please enter: \n1 - login player \n2 - register new player"
+                "\n3 - play without registration \n4 - show Score Table \n:"
+            )
         )
 
-        if choice == str(1):
+        if choice == 1:
             nickname = input("Please enter Your nickname:")
             players = session.query(Player).all()
 
@@ -37,40 +39,21 @@ def login_player():
             if not player_found:
                 print("Player doesn't exist. Please register a new player.")
 
-        elif choice == str(2):
+        elif choice == 2:
             register_new_player()
 
-        elif choice == str(3):
+        elif choice == 3:
             print("You playing without registration. Your score will not be saved.")
             break
 
-        elif choice == str(4):
+        elif choice == 4:
             display_score_table()
 
         else:
             print("Input correct letter. Please enter only: 1, 2, 3, or 4")
 
 
-# def find_existing_player():
-#     # player_id = None
-
-#     nickname = input("Please enter Your nickname:")
-#     players = session.query(Player).all()
-
-#     player_found = False
-
-#     for player in players:
-#         if nickname == player.nickname:
-#             print(f"Lets play {nickname}. Your score will be saved.")
-#             player_found = True
-#             player_id = player.id
-#             return player_id
-
-#     if not player_found:
-#         print("Player doesn't exist. Please register a new player.")
-
-
-def register_new_player():
+def register_new_player() -> None:
     while True:
         try:
             nickname = input("Please enter nickname:")

@@ -9,6 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 sys.path.append("C:\\Users\\olega\\projects\\Hangman_game\\src\\db")
 
+
 from models import engine, Player
 from app_sql2 import login_player
 from data import fruits, countries, numbers, animals
